@@ -1,15 +1,32 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate, } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
    
 const Register = () => {
     const {createNewUser,
         setUser} =useContext(AuthContext);
+        
+        //useNaviget ta ka anlam
+       const navigate = useNavigate();
+
+       //for show error stp 2 start
+
+        //for show error stp 1 start
+      const [error,setError,updateUserProfile] =useState({});
+       //for show error stp 1 start
+
     const handleSubmit = (e)=>{
       e.preventDefault();
       //form data nia asbo
       const form = new FormData(e.target);
       const name = form.get("name");
+       
+       if (name.length<5){
+        setError({...error,name:"must be more 5 character long"})
+        return;
+       }
+       //for show error stp 2 end
+
       const email = form.get("email");
       const photo = form.get("photo");
       const password = form.get("password");
@@ -20,6 +37,18 @@ const Register = () => {
         const user= result.user;
         setUser(user);
         console.log(user);
+
+        //updet profile stp 2 stART
+        updateUserProfile({
+          displayName:name,photoURL:photo
+          })
+          .then(()=>{
+            navigate("/")
+          })
+          .catch(err=>{
+            console.log(err);
+          })
+
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -41,6 +70,15 @@ const Register = () => {
             name="name"
             type="text" placeholder="Enter your Your Name" className="input input-bordered" required />
           </div>
+
+          {/* for show error stp 3 start */}
+            {
+             error.name &&  <label className="label text-sm text-red-600">
+             {error.name}
+           </label>
+            }
+            {/* for show error stp 3 end */}
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Photo URL </span>

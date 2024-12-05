@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import app from "../Firebase/firebase.config";
  export const AuthContext = createContext();
 
@@ -11,8 +11,14 @@ import app from "../Firebase/firebase.config";
     const [loading,setLoading]= useState(true);
       // red mor loding dila nathaker somadan end
     console.log(loading,user);
-     
-    //get valut stp 1 start
+
+       // for update user profile stp 1 start>
+     const updateUserProfile = (updatedData) =>{
+        return updateProfile(auth.currentUser,updatedData);
+     }
+     // for update user profile stp 1 end
+
+      //get valut stp 1 start>
     const createNewUser=(email,password) =>{
         //loading off
         setLoading(true);
@@ -39,6 +45,7 @@ import app from "../Firebase/firebase.config";
         logout,
         userLogin,
         loading,
+        updateUserProfile,//up profile saher
     };
     //onAuthStateChanged use korbo
     useEffect(()=>{

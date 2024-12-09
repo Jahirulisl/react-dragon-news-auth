@@ -2,7 +2,7 @@ import { Link, useLoaderData } from "react-router-dom";
 const Card = () => {
     const data=useLoaderData();
     const news =data.data[0];
-    console.log(news);
+    // console.log(news);
 
     return (
         <div className="card bg-base-100  shadow-xl">

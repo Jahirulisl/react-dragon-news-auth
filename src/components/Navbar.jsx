@@ -5,6 +5,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 const Navbar = () => {
   //use value stp 1 start
   const {user, logout}=useContext(AuthContext);
+   console.log(user);
   return (
     <div className="flex justify-between items-center">
       <div className="">{user && user.email}</div>
@@ -12,6 +13,9 @@ const Navbar = () => {
         <Link to="/">Home</Link>
         <Link to="/career">Career</Link>
         <Link to="/about">About</Link>
+
+        <Link to="/dev">Dev Information</Link>
+
       </div>
       <div className="login flex gap-2 items-center">
         <div className=" ">

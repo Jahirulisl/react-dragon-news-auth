@@ -8,9 +8,9 @@ import app from "../Firebase/firebase.config";
  const AuthProvider = ({children}) => {
     const [user,setUser]=useState(null); 
       // red mor loding dila nathaker somadan part-1 strt
-    const [loading,setLoading]= useState(true);
+     const [loading,setLoading]= useState(true);
       // red mor loding dila nathaker somadan end
-    console.log(loading,user);
+     // console.log(loading,user);
 
        // for update user profile stp 1 start>
      const updateUserProfile = (updatedData) =>{

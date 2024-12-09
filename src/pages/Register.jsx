@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate, } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import { updateProfile } from "firebase/auth";
    
 const Register = () => {
     const {createNewUser,
@@ -12,7 +13,7 @@ const Register = () => {
        //for show error stp 2 start
 
         //for show error stp 1 start
-      const [error,setError,updateUserProfile] =useState({});
+      const [error,setError] =useState({});
        //for show error stp 1 start
 
     const handleSubmit = (e)=>{
@@ -30,16 +31,17 @@ const Register = () => {
       const email = form.get("email");
       const photo = form.get("photo");
       const password = form.get("password");
-      console.log(name,email,photo,password);
+       //  console.log(name,email,photo,password);
       
       createNewUser(email,password)
        .then((result)=>{
         const user= result.user;
         setUser(user);
-        console.log(user);
+
+        // console.log(user);
 
         //updet profile stp 2 stART
-        updateUserProfile({
+        updateProfile(result.user,{
           displayName:name,photoURL:photo
           })
           .then(()=>{
@@ -53,7 +55,7 @@ const Register = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-       console.log(errorCode,errorMessage)
+         console.log(errorCode,errorMessage)
       });
     };
     return (
